@@ -6,6 +6,7 @@ src = "src"
 
 [output.html]
 no-section-label = true
+additional-css = ["theme/style.css"]
 git-repository-url = "https://github.com/watonyweng/mdbook"
 edit-url-template = "https://github.com/watonyweng/mdbook/edit/main/{path}"
 
