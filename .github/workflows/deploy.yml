@@ -35,7 +35,9 @@ jobs:
           mdbook-version: "latest"
       - run: mdbook build
       - name: Copy Assets
-        run: ci/copy-assets.sh
+        run: |
+          chmod +x ci/copy-assets.sh
+          ci/copy-assets.sh ${{ matrix.os }}
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
