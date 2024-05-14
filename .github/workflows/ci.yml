@@ -15,18 +15,28 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        build: [stable, beta, nightly, macos, windows]
         include:
-          - os: macos-14
-          - os: windows-latest
+          - build: stable
+            os: ubuntu-latest
+            rust: stable
+          - build: beta
+            os: ubuntu-latest
+            rust: beta
+          - build: nightly
+            os: ubuntu-latest
+            rust: nightly
+          - build: macos
+            os: macos-latest
+            rust: stable
+          - build: windows
+            os: windows-latest
+            rust: stable
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
       - name: Install Rust
-        run: |
-          rustup set profile minimal
-          rustup toolchain install stable
-          rustup default stable
+        run: bash ci/install-rust.sh ${{ matrix.rust }}
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v2
         with:
